@@ -3,7 +3,6 @@ import {Text, View, Image, Button} from 'react-native'
 
 
 class home extends Component {
-    //state i setState su sastavni delovi Component-e
     state = { 
       pokemons: [],
       selectedData:0,
@@ -68,36 +67,51 @@ class home extends Component {
       }
     }
 
-    render(){
-      console.log('renderujem');
-        return (
+
+    handleView(){
+      if(this.state.pokemons[this.state.selectedData]){
+        return(
+        <View>
           <View>
-            <View>
-              <Text>
-                Total ammount of pokemons:
-              </Text>
-             {this.renderTotalAmount()}
-            </View>
-            <View>
-              <View>
-                {this.renderPokemon()}
-              </View>
-              <View>
-              <Button
-                onPress={this.onNext.bind(this)}
-                title="Next pokemon"
-                color="green"
-              />
-              <Button
-                onPress={this.onPrev.bind(this)}
-                title="Previous pokemon"
-                color="blue"
-              />
-              </View>
-            </View>
-           
+            <Text>
+              Total number of pokemons:
+            </Text>
+           {this.renderTotalAmount()}
           </View>
 
+          <View>
+            <View>
+              {this.renderPokemon()}
+            </View>
+            <View>
+            <Button
+              onPress={this.onNext.bind(this)}
+              title="Next pokemon"
+              color="green"
+            />
+            <Button
+              onPress={this.onPrev.bind(this)}
+              title="Previous pokemon"
+              color="blue"
+            />
+            </View>
+          </View>
+        </View>
+        )
+     } else {
+       return(
+         <View>
+           <Text>Loading...</Text>
+         </View>
+       )
+     }
+    }
+
+    render(){
+        return (
+          <View>
+            {this.handleView()}
+          </View>
         );
     }
 }
